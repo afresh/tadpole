@@ -1,7 +1,7 @@
 /**
  * Sample React Native App
  * https://github.com/facebook/react-native
- * @flow
+ * @媲美爱
  */
 
 import React, { Component } from 'react';
@@ -9,14 +9,21 @@ import {
     // Platform,
     StyleSheet,
     BackHandler,
-    StyleSheet,
     View
 } from 'react-native';
 //第三方插件
 import { Router, Scene } from 'react-native-router-flux';
 import ScrollableTabView from 'react-native-scrollable-tab-view';
 //自定义组件
-import CustomTabBar from './components/customTabBar';
+import CustomTabBar from './components/customTabBar'; //自定义选项卡
+//选项卡Tab页
+import HomeTabScreen from './views/home'; //首页
+import HeadsetTabScreen from './views/headset'; //试听
+import BoughtTabScreen from './views/bought'; //已购
+import MineTabScreen from './views/mine'; //我的
+//页面
+import SignInOrUpScreen from './views/signIns/signInOrUp'; //免注册登录
+import SignInScreen from './views/signIns/signIn'; //登录
 
 // const instructions = Platform.select({
 //   ios: 'Press Cmd+R to reload,\n' +
@@ -34,25 +41,28 @@ class Tabs extends Component {
         };
     }
 
+    componentWillMount() {
+        // Disable back button by just returning true instead of Action.pop()
+        BackHandler.addEventListener('hardwareBackPress', () => {return true});
+    }
+
     render() {
-        let tabNames = this.state.tabNames;
+        let tabNames = ['首页', '试听', '已购', '我的'];
         return (
             <ScrollableTabView
-                initialPage={2}
+                initialPage={0} //初始tab索引
                 renderTabBar={() =>
-                    <CustomTabBar tabNames={tabNames}/>
+                    <CustomTabBar tabNames={this.state.tabNames} placeMiddle={true} />
                 }
                 tabBarPosition='bottom'
             >
-                <DataScreen key='dataTab' tabLabel='data'/>
+                <HomeTabScreen key='homeTab' tabLabel='home' />
 
-                <ParentScreen key='parentTab' tabLabel='parent'/>
+                <HeadsetTabScreen key='headsetTab' tabLabel='headset' />
 
-                <WorkbenchScreen key='workbenchTab' tabLabel='workbench'/>
+                <BoughtTabScreen key='boughtTab' tabLabel='bought' />
 
-                <WorkScreen key='workTab' tabLabel='work'/>
-
-                <MineScreen key='mineTab' tabLabel='mine'/>
+                <MineTabScreen key='mineTab' tabLabel='mine' />
             </ScrollableTabView>
         );
     }
@@ -61,12 +71,12 @@ class Tabs extends Component {
 export default class App extends Component {
     render() {
         return (
-            <View style={[{flex: 1}]}>
+            <View style={[{flex: 1, backgroundColor: 'red'}]}>
                 <Router sceneStyle={[styles.router]}>
                     <Scene
                         key="root"
-                        navigationBarStyle={styles.root}
-                        titleStyle={styles.title}
+                        navigationBarStyle={[styles.root]}
+                        titleStyle={[styles.title]}
                         headerMode="screen"
                     >
                         {/*首页(tab)*/}
@@ -89,14 +99,35 @@ export default class App extends Component {
 const styles = StyleSheet.create({
     router: {
         flex: 1,
-        justifyContent: 'column',
+        flexDirection: 'column',
+        justifyContent: 'flex-start',
         alignItems: 'center',
-        backgroundColor: '#F5FCFF',
+        // backgroundColor: '#e6e6e6',
+        backgroundColor: '#27ab43',
     },
     root: {
-        backgroundColor: '#2c2d31',
+        backgroundColor: '#ffffff',
     },
     title: {
         color: '#ffffff',
+    },
+});
+
+global.styles = StyleSheet.create({
+    screen: {
+        flex: 1,
+        flexDirection: 'column',
+        justifyContent: 'center',
+        alignItems: 'center',
+        backgroundColor: '#c3c345',
+    },
+    container: {
+        backgroundColor: '#b24563',
+    },
+    text: {
+        color: '#2c2c2c',
+        fontSize: 20,
+        textAlign: 'center',
+        margin: 10,
     },
 });

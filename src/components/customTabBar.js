@@ -1,37 +1,43 @@
+/**
+ * Created by 媲美爱 on 2018-05-25.
+ */
 'use strict';
 
 import React, {Component} from 'react';
-
 import {
     Platform,
     StyleSheet,
+    BackHandler,
+    StatusBar,
     View,
     TouchableOpacity,
     Image,
     Text,
-    StatusBar,
 } from 'react-native';
-
-import ScreenUtil from "./screenUtil";
+//第三方插件
 import PropTypes from 'prop-types';
+//自定义组件
+import Common from './common'; //公共类
 
 const tabIcons = [
-    require('../resources/images/tabicons/data_v.png'),
-    require('../resources/images/tabicons/data_x.png'),
-    require('../resources/images/tabicons/parent_v.png'),
-    require('../resources/images/tabicons/parent_x.png'),
-    require('../resources/images/tabicons/workbench_v.png'),
-    require('../resources/images/tabicons/workbench_x.png'),
-    require('../resources/images/tabicons/work_v.png'),
-    require('../resources/images/tabicons/work_x.png'),
-    require('../resources/images/tabicons/mine_v.png'),
-    require('../resources/images/tabicons/mine_x.png')
+    require('../resources/images/tabs/home_v.png'),
+    require('../resources/images/tabs/home_x.png'),
+    require('../resources/images/tabs/headset_v.png'),
+    require('../resources/images/tabs/headset_x.png'),
+    require('../resources/images/tabs/bought_v.png'),
+    require('../resources/images/tabs/bought_x.png'),
+    require('../resources/images/tabs/mine_v.png'),
+    require('../resources/images/tabs/mine_x.png')
 ];
 
-export default class TabBar extends Component {
-
+export default class CustomTabBar extends Component {
     constructor(props) {
         super(props);
+    }
+
+    componentWillMount() {
+        // Disable back button by just returning true instead of Action.pop()
+        BackHandler.addEventListener('hardwareBackPress', () => {return true});
     }
 
     static setAnimationValue({value}) {
@@ -40,35 +46,55 @@ export default class TabBar extends Component {
 
     componentDidMount() {
         // Animated.Value监听范围 [0, tab数量-1]
-        this.props.scrollValue.addListener(TabBar.setAnimationValue);
+        this.props.scrollValue.addListener(CustomTabBar.setAnimationValue);
     }
 
     renderTabOption(tab, i) {
-        let color = this.props.activeTab === i ? "#f66262" : "#777779"; // 判断i是否是当前选中的tab，设置不同的颜色
+        alert("tab===" + i);
+        let color = this.props.activeTab === i ? "#1296db" : "#707070"; // 判断i是否是当前选中的tab，设置不同的颜色
+        let tabName = this.props.tabNames[i];
         return (
-            <TouchableOpacity onPress={()=>this.props.goToPage(i)} style={styles.tab} key={'tab' + i}>
-                <View style={styles.tabItem}>
+            <TouchableOpacity onPress={()=>this.props.goToPage(i)} style={[styles.tab]} key={'tab' + i}>
+                <View style={[styles.tabBox]}>
                     <Image
                         source={tabIcons[this.props.activeTab === i ? i*2 : i*2+1]}
-                        style={{width: i === 2 ? 38 : 22, height: i === 2 ? 38 : 22, marginTop: i === 2 ? 0 : 1}}
+                        style={[styles.tabBoxIcon]}
                     />
-                    <Text style={{display: i === 2 ? 'none' : 'flex', color: color, fontSize: 10, marginTop: 3}}>
-                        {this.props.tabNames[i]}
+                    <Text style={[styles.tabBoxName, {color: color}]}>
+                        {tabName}
                     </Text>
                 </View>
             </TouchableOpacity>
         );
     }
 
+    renderTabs() {
+        if (true !== this.props.placeMiddle || 0 !== this.props.tabs.length%2) {
+            return this.props.tabs.map((tab, i) => this.renderTabOption(tab, i));
+        } else  {
+            let tabs = [];
+            for (let i = 0; i < this.props.tabs.length; i++) {
+                let tab = this.props.tabs[i];
+                if (i === parseInt(this.props.tabs.length/2)) {
+                    let middle = (
+                        <View style={[styles.tabBox]}/>
+                    );
+                    tabs.push(middle);
+                }
+                tabs.push(this.renderTabOption(tab, i));
+            }
+        }
+    }
+
     render() {
-        let tabBar = Platform.select({
-            ios: ScreenUtil.isIphoneX ? 68 : 49,
+        let tabBarHeight = Platform.select({
+            ios: Common.isIphoneX ? 68 : 49,
             android: 49,
         });
         return (
-            <View key={'custom'} style={[styles.tabs, {height: tabBar}]}>
+            <View key={'custom'} style={[styles.tabs, {height: tabBarHeight}]}>
                 <StatusBar
-                    backgroundColor="#101013"
+                    backgroundColor="#ffffff"
                     barStyle="light-content"
                 />
                 {this.props.tabs.map((tab, i) => this.renderTabOption(tab, i))}
@@ -77,7 +103,7 @@ export default class TabBar extends Component {
     }
 }
 
-TabBar.propTypes = {
+CustomTabBar.propTypes = {
     goToPage: PropTypes.func, // 跳转到对应tab的方法
     activeTab: PropTypes.number, // 当前被选中的tab下标
     tabs: PropTypes.array, // 所有tabs集合
@@ -88,20 +114,34 @@ TabBar.propTypes = {
 const styles = StyleSheet.create({
     tabs: {
         flexDirection: 'row',
-        backgroundColor:'#f9f9f8',
+        // backgroundColor:'#ffffff',
+        backgroundColor:'#a46713',
         borderTopWidth: 0.5,
-        borderTopColor: '#b3b3b3',
+        borderTopColor: '#cdcdcd',
     },
     tab: {
+        backgroundColor:'#11b6aa',
         flex: 1,
-        justifyContent: 'flex-start',
-        alignItems: 'center',
-        marginTop: 7,
-    },
-    tabItem: {
         flexDirection: 'column',
+        justifyContent: 'center',
         alignItems: 'center',
-        width: 38,
-        height: 39,
+    },
+    tabBox: {
+        backgroundColor:'#a2a288',
+        flexDirection: 'column',
+        justifyContent: 'center',
+        alignItems: 'center',
+        width: 48,
+        height: 48,
+    },
+    tabBoxIcon: {
+        width: 22,
+        height: 22,
+        marginTop: 1,
+    },
+    tabBoxName: {
+        backgroundColor:'#3a98cc',
+        fontSize: 10,
+        marginTop: 3,
     },
 });
