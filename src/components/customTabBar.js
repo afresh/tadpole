@@ -1,13 +1,11 @@
 /**
  * Created by 媲美爱 on 2018-05-25.
  */
-'use strict';
 
 import React, {Component} from 'react';
 import {
     Platform,
     StyleSheet,
-    BackHandler,
     StatusBar,
     View,
     TouchableOpacity,
@@ -35,11 +33,6 @@ export default class CustomTabBar extends Component {
         super(props);
     }
 
-    componentWillMount() {
-        // Disable back button by just returning true instead of Action.pop()
-        BackHandler.addEventListener('hardwareBackPress', () => {return true});
-    }
-
     static setAnimationValue({value}) {
         console.log(value);
     }
@@ -50,7 +43,6 @@ export default class CustomTabBar extends Component {
     }
 
     renderTabOption(tab, i) {
-        alert("tab===" + i);
         let color = this.props.activeTab === i ? "#1296db" : "#707070"; // 判断i是否是当前选中的tab，设置不同的颜色
         let tabName = this.props.tabNames[i];
         return (
@@ -77,12 +69,15 @@ export default class CustomTabBar extends Component {
                 let tab = this.props.tabs[i];
                 if (i === parseInt(this.props.tabs.length/2)) {
                     let middle = (
-                        <View style={[styles.tabBox]}/>
+                        <View key={'tabMiddle'} style={[styles.tab]}>
+                            <View style={[styles.tabMiddleBox]}/>
+                        </View>
                     );
                     tabs.push(middle);
                 }
                 tabs.push(this.renderTabOption(tab, i));
             }
+            return tabs;
         }
     }
 
@@ -97,7 +92,7 @@ export default class CustomTabBar extends Component {
                     backgroundColor="#ffffff"
                     barStyle="light-content"
                 />
-                {this.props.tabs.map((tab, i) => this.renderTabOption(tab, i))}
+                {this.renderTabs()}
             </View>
         );
     }
@@ -114,20 +109,25 @@ CustomTabBar.propTypes = {
 const styles = StyleSheet.create({
     tabs: {
         flexDirection: 'row',
-        // backgroundColor:'#ffffff',
-        backgroundColor:'#a46713',
+        backgroundColor:'#ffffff',
         borderTopWidth: 0.5,
         borderTopColor: '#cdcdcd',
     },
     tab: {
-        backgroundColor:'#11b6aa',
         flex: 1,
         flexDirection: 'column',
         justifyContent: 'center',
         alignItems: 'center',
     },
     tabBox: {
-        backgroundColor:'#a2a288',
+        flexDirection: 'column',
+        justifyContent: 'center',
+        alignItems: 'center',
+        width: 48,
+        height: 48,
+    },
+    tabMiddleBox: {
+        flex: 1,
         flexDirection: 'column',
         justifyContent: 'center',
         alignItems: 'center',
@@ -137,10 +137,9 @@ const styles = StyleSheet.create({
     tabBoxIcon: {
         width: 22,
         height: 22,
-        marginTop: 1,
+        // marginTop: 1,
     },
     tabBoxName: {
-        backgroundColor:'#3a98cc',
         fontSize: 10,
         marginTop: 3,
     },

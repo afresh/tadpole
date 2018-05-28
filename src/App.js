@@ -9,7 +9,7 @@ import {
     // Platform,
     StyleSheet,
     BackHandler,
-    View
+    View,
 } from 'react-native';
 //第三方插件
 import { Router, Scene } from 'react-native-router-flux';
@@ -32,13 +32,9 @@ import SignInScreen from './views/signIns/signIn'; //登录
 //     'Shake or press menu button for dev menu',
 // });
 
-class Tabs extends Component {
+export class Tabs extends Component {
     constructor(props) {
         super(props);
-
-        this.state = {
-            tabNames: ['数据', '家长', '工作台', '工作', '我的'],
-        };
     }
 
     componentWillMount() {
@@ -52,7 +48,10 @@ class Tabs extends Component {
             <ScrollableTabView
                 initialPage={0} //初始tab索引
                 renderTabBar={() =>
-                    <CustomTabBar tabNames={this.state.tabNames} placeMiddle={true} />
+                    <CustomTabBar
+                        tabNames={tabNames} //tab名称
+                        placeMiddle={false} //中间是否占位，即中间是否需要用特殊按钮样式等
+                    />
                 }
                 tabBarPosition='bottom'
             >
@@ -81,8 +80,9 @@ export default class App extends Component {
                     >
                         {/*首页(tab)*/}
                         <Scene
-                            key="tabs"
+                            key="home"
                             component={Tabs}
+                            title="首页"
                             initial={true}
                             hideNavBar={true} //此处以及其他页都隐藏了导航，我打算自定义组件作为头部导航栏。
                         />
@@ -98,15 +98,10 @@ export default class App extends Component {
 
 const styles = StyleSheet.create({
     router: {
-        flex: 1,
-        flexDirection: 'column',
-        justifyContent: 'flex-start',
-        alignItems: 'center',
-        // backgroundColor: '#e6e6e6',
-        backgroundColor: '#27ab43',
+        backgroundColor: '#e6e6e6',
     },
     root: {
-        backgroundColor: '#ffffff',
+        backgroundColor: '#e6e6e6',
     },
     title: {
         color: '#ffffff',
@@ -119,10 +114,10 @@ global.styles = StyleSheet.create({
         flexDirection: 'column',
         justifyContent: 'center',
         alignItems: 'center',
-        backgroundColor: '#c3c345',
+        backgroundColor: '#e6e6e6',
     },
     container: {
-        backgroundColor: '#b24563',
+        backgroundColor: '#e6e6e6',
     },
     text: {
         color: '#2c2c2c',
