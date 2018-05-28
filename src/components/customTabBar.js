@@ -90,7 +90,7 @@ export default class CustomTabBar extends Component {
             <View key={'custom'} style={[styles.tabs, {height: tabBarHeight}]}>
                 <StatusBar
                     backgroundColor="#ffffff"
-                    barStyle="light-content"
+                    barStyle="dark-content"
                 />
                 {this.renderTabs()}
             </View>
@@ -137,7 +137,6 @@ const styles = StyleSheet.create({
     tabBoxIcon: {
         width: 22,
         height: 22,
-        // marginTop: 1,
     },
     tabBoxName: {
         fontSize: 10,

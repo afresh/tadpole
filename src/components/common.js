@@ -102,16 +102,20 @@ export default class Common {
     static PIXEL_RATIO = pixelRatio;
     static DEFAULT_DENSITY = DEFAULT_DENSITY;
 
+    //是否为iphoneX
     static isIphoneX = isIphoneX();
 
+    //字体自适应大小
     static autoFontSize(size) {
         return autoFontSize(size);
     }
 
+    //尺寸自适应大小
     static autoScaleSize(size) {
         return autoScaleSize(size);
     }
 
+    //获取指定格式时间字符串
     static getDateFormat(date, format = false) {
         if (false !== format) {
             format = "yyyy-MM-dd HH:mm:ss";
