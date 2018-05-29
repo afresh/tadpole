@@ -40,7 +40,7 @@ export default class HomeTabScreen extends Component {
                     <Button onPress={() => global.toast('这是消息提示')} title="Toast" />
                 </View>
                 <View style={[{marginTop: 10}]}>
-                    <Button onPress={() => {}} title="内容页" />
+                    <Button onPress={Actions.topShow} title="内容页" />
                 </View>
             </View>
         )

@@ -16,7 +16,6 @@ import { Router, Scene } from 'react-native-router-flux';
 import ScrollableTabView from 'react-native-scrollable-tab-view';
 import Toast from 'react-native-easy-toast';
 //自定义组件
-import Common from './components/common'; //公共类
 import CustomTabBar from './components/customTabBar'; //自定义选项卡
 import PlayButton from "./components/playButton";
 import Loading from './components/loading';
@@ -28,6 +27,7 @@ import MineTabScreen from './views/mine'; //我的
 //页面
 import SignInOrUpScreen from './views/signIns/signInOrUp'; //免注册登录
 import SignInScreen from './views/signIns/signIn'; //登录
+import TopShowScreen from './views/home/topShow'; //登录
 
 // const instructions = Platform.select({
 //   ios: 'Press Cmd+R to reload,\n' +
@@ -117,6 +117,8 @@ export default class App extends Component {
                         {/*登录*/}
                         <Scene key="signInOrUp" component={SignInOrUpScreen} title="免注册登录" hideNavBar={true} />
                         <Scene key="signIn" component={SignInScreen} title="登录" hideNavBar={true} />
+                        {/*内容页*/}
+                        <Scene key="topShow" component={TopShowScreen} title="内容页" hideNavBar={true} />
                     </Scene>
                 </Router>
                 <PlayButton />
@@ -143,7 +145,7 @@ global.styles = StyleSheet.create({
     screen: {
         flex: 1,
         flexDirection: 'column',
-        justifyContent: 'center',
+        justifyContent: 'flex-start',
         alignItems: 'center',
         backgroundColor: '#e6e6e6',
     },

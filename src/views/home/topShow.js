@@ -8,7 +8,13 @@ import {
     StyleSheet,
     View,
     Text,
+    Image,
 } from 'react-native';
+//第三方插件
+import { Actions } from 'react-native-router-flux';
+//自定义组件
+import Common from '../../components/common'; //公共类
+import Header from '../../components/header'; //头部导航
 
 export default class TopShowScreen extends Component {
     constructor(props){
@@ -18,9 +24,10 @@ export default class TopShowScreen extends Component {
     render() {
         return (
             <View style={[global.styles.screen]}>
-                <View style={[styles.header]}>
-                    this is SignInOrUpScreen.
-                </View>
+                <Header title={"内容页"} doneText={"完成"} style={[styles.header]} />
+                <Text style={[global.styles.text]}>
+                    this is TopShowScreen.
+                </Text>
             </View>
         )
     }
