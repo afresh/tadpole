@@ -3,6 +3,8 @@
 #### 项目介绍
 tadpole，基于react-native开发的项目框架，可以直接用来二次开发。
 
+![demo](https://github.com/afresh/tadpole/blob/master/doc/demo.gif)
+
 #### 软件架构
 基于react-native开发的项目框架，可以直接用来二次开发。
 
