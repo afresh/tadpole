@@ -7,7 +7,10 @@ import {
     StyleSheet,
     View,
     Text,
+    Button,
 } from 'react-native';
+//第三方插件
+import { Actions } from 'react-native-router-flux';
 
 export default class HomeTabScreen extends Component {
     constructor(props){
@@ -20,6 +23,12 @@ export default class HomeTabScreen extends Component {
                 <Text style={[global.styles.text]}>
                     this is HomeTabScreen.
                 </Text>
+                <View style={[{marginTop: 10}]}>
+                    <Button onPress={Actions.signInOrUp} title="免注册登录" />
+                </View>
+                <View style={[{marginTop: 10}]}>
+                    <Button onPress={() => global.showLoading()} title="Loading" />
+                </View>
             </View>
         )
     }

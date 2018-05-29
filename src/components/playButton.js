@@ -1,3 +1,7 @@
+/**
+ * Created by 媲美爱 on 2018-05-29.
+ */
+
 import React, { Component } from 'react';
 import {
     Animated,

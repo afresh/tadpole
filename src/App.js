@@ -18,6 +18,7 @@ import ScrollableTabView from 'react-native-scrollable-tab-view';
 import Common from './components/common'; //公共类
 import CustomTabBar from './components/customTabBar'; //自定义选项卡
 import PlayButton from "./components/playButton";
+import Loading from './components/loading';
 //选项卡Tab页
 import HomeTabScreen from './views/home'; //首页
 import HeadsetTabScreen from './views/headset'; //试听
@@ -69,9 +70,23 @@ export class Tabs extends Component {
     }
 }
 
+let self; //将App组件中的this赋给全局的self
+global.showLoading = false; //所有子页面均可直接调用global.showLoading()来展示Loading
+global.closeLoading = false; //所有子页面均可直接调用global.closeLoading()来关闭Loading
+
 export default class App extends Component {
     constructor(props) {
         super(props);
+    }
+
+    componentDidMount() {
+        self = this;
+        global.showLoading = function() {
+            self.Loading.show();
+        };
+        global.closeLoading = function() {
+            self.Loading.close();
+        };
     }
 
     render() {
@@ -100,6 +115,7 @@ export default class App extends Component {
                     </Scene>
                 </Router>
                 <PlayButton />
+                <Loading ref={r=>{this.Loading = r}} hide = {true} />
             </View>
         );
     }
