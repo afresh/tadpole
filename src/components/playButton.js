@@ -131,10 +131,11 @@ const styles = StyleSheet.create({
     },
     playBoxBackground: {
         backgroundColor: '#ffffff',
-        width: Common.autoScaleSize(128),
-        height: Common.autoScaleSize(101),
+        width: Common.autoScaleSize(125),
+        height: Common.autoScaleSize(72),
         position: 'absolute',
         bottom: 0,
+        left: Common.autoScaleSize(1),
     },
     playInner: {
         width: Common.autoScaleSize(101),
