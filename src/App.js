@@ -14,6 +14,7 @@ import {
 //第三方插件
 import { Router, Scene } from 'react-native-router-flux';
 import ScrollableTabView from 'react-native-scrollable-tab-view';
+import Toast from 'react-native-easy-toast';
 //自定义组件
 import Common from './components/common'; //公共类
 import CustomTabBar from './components/customTabBar'; //自定义选项卡
@@ -73,6 +74,7 @@ export class Tabs extends Component {
 let self; //将App组件中的this赋给全局的self
 global.showLoading = false; //所有子页面均可直接调用global.showLoading()来展示Loading
 global.closeLoading = false; //所有子页面均可直接调用global.closeLoading()来关闭Loading
+global.toast = false; //所有子页面均可直接调用global.toast("")来吐司提示消息
 
 export default class App extends Component {
     constructor(props) {
@@ -86,6 +88,9 @@ export default class App extends Component {
         };
         global.closeLoading = function() {
             self.Loading.close();
+        };
+        global.toast = function(message) {
+            self.refs.toast.show(message);
         };
     }
 
@@ -115,6 +120,7 @@ export default class App extends Component {
                     </Scene>
                 </Router>
                 <PlayButton />
+                <Toast ref="toast" opacity={0.8}/>
                 <Loading ref={r=>{this.Loading = r}} hide = {true} />
             </View>
         );

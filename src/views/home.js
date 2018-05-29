@@ -29,6 +29,9 @@ export default class HomeTabScreen extends Component {
                 <View style={[{marginTop: 10}]}>
                     <Button onPress={() => global.showLoading()} title="Loading" />
                 </View>
+                <View style={[{marginTop: 10}]}>
+                    <Button onPress={() => global.toast('这是消息提示')} title="Toast" />
+                </View>
             </View>
         )
     }
