@@ -8,7 +8,6 @@ import {
     StyleSheet,
     View,
     Text,
-    Image,
 } from 'react-native';
 //第三方插件
 import { Actions } from 'react-native-router-flux';
