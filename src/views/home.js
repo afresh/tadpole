@@ -17,6 +17,13 @@ export default class HomeTabScreen extends Component {
         super(props);
     }
 
+    _showLoading() {
+        global.showLoading();
+        setTimeout(()=>{
+            global.closeLoading();
+        },500)
+    }
+
     render() {
         return (
             <View style={[global.styles.screen]}>
@@ -27,7 +34,7 @@ export default class HomeTabScreen extends Component {
                     <Button onPress={Actions.signInOrUp} title="免注册登录" />
                 </View>
                 <View style={[{marginTop: 10}]}>
-                    <Button onPress={() => global.showLoading()} title="Loading" />
+                    <Button onPress={() => this._showLoading()} title="Loading" />
                 </View>
                 <View style={[{marginTop: 10}]}>
                     <Button onPress={() => global.toast('这是消息提示')} title="Toast" />
