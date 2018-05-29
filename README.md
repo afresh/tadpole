@@ -9,6 +9,7 @@ tadpole，基于react-native开发的项目框架，可以直接用来二次开�
 #### 安装教程
 
 $ npm install
+
 $ react-native run-android
 
 #### 使用说明
