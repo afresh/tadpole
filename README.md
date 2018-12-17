@@ -1,5 +1,7 @@
 # tadpole
 
+> 我已经在GitHub上提交了新的项目模板[react-native-boilerplate-dolphin](https://github.com/afresh/react-native-boilerplate-dolphin)，欢迎star和交流。
+
 #### 项目介绍
 tadpole，基于react-native开发的项目框架，可以直接用来二次开发。
 
